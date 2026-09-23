@@ -80,7 +80,8 @@ function updateReviewStatus() {
   const answers = answerInputs.filter(input => input.dataset.w1Answer !== 'question' && input.value.trim()).length;
   const checked = checkInputs.filter(input => input.checked).length;
   byId('w1-reading-status').textContent = `${reading} / 3 篇已标记`;
-  byId('w1-draft-status').textContent = answers ? `${answers} / 4 题有草稿 · 等待讨论` : '还没有复盘草稿';
+  const includesExample = answerInputs.some(input => input.value.startsWith('【助手示范'));
+  byId('w1-draft-status').textContent = answers ? `${answers} / 4 题有草稿 · ${includesExample ? '含助手示范' : '等待讨论'}` : '还没有复盘草稿';
   byId('w1-check-status').textContent = `自检 ${checked} / 3 · ${checked === 3 ? '可以带着复盘讨论是否进入 Week 2。' : '可以带着问题开始讨论。'}`;
   byId('w1-mark-read').disabled = reading === readingInputs.length;
   byId('w1-mark-read').textContent = reading === readingInputs.length ? '已标记三篇读完' : '三篇都已读完';
@@ -103,6 +104,7 @@ function loadReview() {
 }
 function discussionText() {
   const state = snapshotReview();
+  const includesExample = Object.values(state.answers).some(answer => answer.startsWith('【助手示范'));
   const sourceLines = readingInputs.map(input => {
     const link = input.closest('li').querySelector('a');
     return `- [${input.checked ? 'x' : ' '}] [${link.textContent.replace(/ ↗$/, '')}](${link.href})`;
@@ -113,12 +115,15 @@ function discussionText() {
     '# Week 1 复盘：用户、任务、旅程与摩擦',
     '学习计划：https://1iamm.github.io/ai-product-learning-roadmap/#week1',
     '本周学习资料仅为以下三篇 Growth.Design 案例；请以这份清单为准。',
+    includesExample ? '内容说明：下面含有助手提供的 Week 1 写法示范，请不要将它视为我已独立完成或掌握。Week 2 起我会自己尝试。' : '',
     '## 阅读标记\n\n' + sourceLines.join('\n'),
     ...answerLines,
     '## 我的自检（不代表助手已验收）\n\n' + selfChecks.join('\n'),
-    '## 希望怎样讨论\n\n请先指出理解准确的地方、混淆的概念，以及观察与推断是否分清，再一次追问一个问题。优先使用这三篇的案例，不要求我先提供真实业务，也不要直接代写我的答案。讨论后帮助我整理认知变化、修正和未解决问题，再判断是否进入 Week 2。',
+    includesExample
+      ? '## 希望怎样讨论\n\n请带我理解示范中从原文观察到解释与建议的推理过程，回答我的疑问。不要将阅读示范或复制示范当成我已经掌握。Week 2 起我会先写自己的复盘，再请你反馈。'
+      : '## 希望怎样讨论\n\n请先指出理解准确的地方、混淆的概念，以及观察与推断是否分清，再一次追问一个问题。优先使用这三篇的案例，不要求我先提供真实业务，也不要直接代写我的答案。讨论后帮助我整理认知变化、修正和未解决问题，再判断是否进入 Week 2。',
     '导出时间：' + new Date().toLocaleString('zh-CN')
-  ].join('\n\n');
+  ].filter(Boolean).join('\n\n');
 }
 async function copyReview() {
   const text = discussionText();
@@ -154,6 +159,23 @@ byId('w1-mark-read').addEventListener('click', () => { readingInputs.forEach(inp
 byId('w1-save').addEventListener('click', saveReview);
 byId('w1-copy').addEventListener('click', copyReview);
 byId('w1-export').addEventListener('click', exportReview);
+byId('w1-use-example').addEventListener('click', () => {
+  let added = 0;
+  answerInputs.forEach(input => {
+    if (input.value.trim()) return;
+    const example = document.querySelector(`[data-w1-example="${input.dataset.w1Answer}"]`);
+    if (!example) return;
+    const source = example.closest('article').querySelector('.example-source');
+    input.value = '【助手示范，可改写】\n\n' + example.innerText.trim() + (source ? '\n\n来源：' + source.href : '');
+    added++;
+  });
+  if (!added) {
+    byId('example-status').textContent = '复盘栏都有内容，已保留现有草稿；示范可在上方阅读或下载。';
+    return;
+  }
+  const saved = saveReview();
+  byId('example-status').textContent = `已填入 ${added} 个空白复盘栏，已有内容未改动。${saved ? '草稿已保存。' : '本地保存失败，请及时导出。'}`;
+});
 byId('notes').addEventListener('input', saveNotes);
 byId('notes-week').addEventListener('change', () => {
   const select = byId('notes-week');
