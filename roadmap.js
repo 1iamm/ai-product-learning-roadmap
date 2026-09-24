@@ -177,16 +177,30 @@ byId('w1-use-example').addEventListener('click', () => {
   byId('example-status').textContent = `已填入 ${added} 个空白复盘栏，已有内容未改动。${saved ? '草稿已保存。' : '本地保存失败，请及时导出。'}`;
 });
 byId('notes').addEventListener('input', saveNotes);
-byId('notes-week').addEventListener('change', () => {
+function changeNotesWeek(week) {
   const select = byId('notes-week');
   if (!saveNotes()) {
     select.value = activeNotesKey === notesKey ? 'legacy' : activeNotesKey.replace('productRoadmapNotesV2-', '');
-    return;
+    return false;
   }
+  select.value = week;
   activeNotesKey = select.value === 'legacy' ? notesKey : 'productRoadmapNotesV2-' + select.value;
   byId('notes').value = readText(activeNotesKey) || '';
   byId('notes').placeholder = select.value === 'legacy' ? '原有的通用笔记保留在这里。' : '本周读了什么：\n我的理解与案例依据：\n讨论后的修正：\n尚未解决的问题：';
+  const prompt = document.querySelector(`#${week}-b2b .b2b-reflection > p`);
+  byId('b2b-note-prompt').textContent = prompt ? '本周 B 端思考：' + prompt.textContent : '';
+  byId('b2b-note-prompt').hidden = !prompt;
   byId('saveStatus').textContent = '已切换记录，输入后自动保存';
+  return true;
+}
+byId('notes-week').addEventListener('change', () => changeNotesWeek(byId('notes-week').value));
+document.querySelectorAll('[data-note-week]').forEach(button => {
+  button.addEventListener('click', () => {
+    if (changeNotesWeek(button.dataset.noteWeek)) {
+      byId('weekly-notes').scrollIntoView({ block: 'start' });
+      byId('notes').focus({ preventScroll: true });
+    }
+  });
 });
 byId('notes-export').addEventListener('click', () => {
   const select = byId('notes-week');

@@ -32,6 +32,21 @@
 - 通用历史笔记单独保留，Week 2–6 可各自记录和导出。
 - 添加由助手整理的 Week 1 完整示范（四道复盘题与疑问），包含来源、观察、解释与建议的边界。支持下载及仅填入空白复盘栏；不覆盖已有回答或自动勾选自检。Week 2 起由学习者先作答。
 
+## 2026-09-24 B 端补充
+
+- 增加 B2B 学习导航，保留 Week 1 的三篇材料与助手示范。
+- Week 2：Trello 案例 + Mixpanel Account Analytics（2025）激活小节；分别理解个人与团队首次价值。
+- Week 3：保留两篇主阅读，替换选读为 SVPG 企业软件设计（2018）。明确它是较早的角色关系基础材料。
+- Week 4：漏斗 + Group Analytics 指定章节，Cohorts 选读；区分个人／组织口径、角色与事件归属。
+- Week 5：留存概念 + Mixpanel 客户团队实践（2025）；区分持续采用、账户健康与续费。
+- Week 6：复用已读材料，整合角色、流程、状态、指标、权限、异常恢复和 Agent 分工。
+- 每周新增一个 B 端复盘问题，可跳到对应周笔记；已有笔记保留。Week 2 起由学习者先写，不自动填示范。
+- 核心新增材料：
+  - [Account Analytics（2025-02-25）](https://mixpanel.com/blog/mixpanel-account-analytics-b2b/)
+  - [Customer health / renewals（2025-01-24）](https://mixpanel.com/blog/how-b2b-saas-account-teams-use-mixpanel-customer-health-renewals/)
+  - [Group Analytics（持续更新的文档）](https://docs.mixpanel.com/docs/data-structure/group-analytics)
+  - [Enterprise Software Design（2018-12-27，选读）](https://www.svpg.com/design-in-enterprise-software-companies/)
+
 ## 维护与数据
 
 - `index.html`：路线和复盘内容；`review.css`：新增布局；`roadmap.js`：本地记录和导出。
