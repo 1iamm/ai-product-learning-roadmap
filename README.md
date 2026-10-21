@@ -1,6 +1,20 @@
 # AI Product Learning Roadmap
 
-当前首页是面向 SaaS 实践的 **4 周产品设计学习计划**：发现并选择重要需求 → 设计交互 → 验证需求效果 → 判断产品价值。每周约 2–3 小时，允许跨周完成。
+当前首页是面向 SaaS 实践的 **6 周产品设计与经营案例研读**：需求与客户 → 取舍与范围 → 交互 → 验证与定价 → 获客与销售 → 激活、留存与续费。每周约 3 小时，可以拆开完成。
+
+## 当前进阶版（2026-10-21）
+
+- 12 个主研读单元，以团队的一手复盘和实践为主：Superhuman、Linear、Basecamp、Figma、Intercom / Fin、PostHog、Appfire 与 ChartMogul。
+- 包含指定阅读范围、方法出处、证据边界、反证问题和每周练习。原团队采用的方法与本站教学重构明确区分；不把自述、相关性或假设当成实验事实。
+- 14 张 SVG 教学图，以及 `diagrams/product-case-methods.drawio` 可编辑图册。包括客户分群、机会树、优先级、Breadboard、界面覆盖矩阵、Wireframe / Flowchart / Wireflow、指标树、价值收费、GTM、购买旅程、激活漏斗和生命周期运营。
+- RICE 敏感性、渠道实验与 GRR / NRR 例子明确标记为教学假设。
+- 当前文件：`index.html`、`case-study.css`、`case-study.js`、`diagrams/`。CSS 复用未修改的 `product-design.css`。
+- 独立存储键：`productCaseStudies20261021V1-week1` 至 `week6`。保留阅读、草稿、自检分离、异常保护和 Markdown 导出。
+- 新锚点 `#case-week1` 至 `#case-week6`。原 `#pd-week*`、`#work-week*` 等链接自动转到上一版基础路线；更早的 `#week1-example` 等继续转到 Growth.Design 历史路线。
+- 上一版四周首页保存为 `product-design-foundations.html`，只增加归档提示。原 `product-design.js`、`product-design.css` 和所有旧路线资产保持不变，原笔记继续在原页面恢复。
+- 来源与设计记录见 `docs/plans/2026-10-21-case-study-course.md`。上线仍使用原 GitHub Pages main/root。
+
+以下保留前两版学习路线的维护记录。
 
 原有六阶段路线、Week 1 三篇 Growth.Design 与完整示范保存在 `foundations.html`；历史存储键与字段顺序保持不变。
 
@@ -8,7 +22,7 @@
 
 每周包含目标、指定阅读范围与来源日期、时间建议、一个作业、三条验收标准和可保存的结构化笔记。
 
-## 当前 4 周计划（2026-10-19）
+## 已归档 4 周基础计划（2026-10-19）
 
 1. 发现与取舍：Product Talk 的 API 需求发现案例、客户访谈、机会解决方案树；交付需求判断卡。
 2. 交互设计：NN/g Task Analysis 与 Wireflows；交付两套草图、一条任务流程及选择理由。
@@ -59,7 +73,7 @@
 
 ## 维护与数据
 
-- 当前课程：`index.html`、`product-design.css`、`product-design.js`。
+- 四周基础课程：`product-design-foundations.html`、`product-design.css`、`product-design.js`。
 - 历史路线：`foundations.html`、`review.css`、`roadmap.js`，以及 `week1-worked-example.md`。
 - 旧首页片段链接（例如 `#week1-example`、`#b2b-guide`）在启用脚本时转到历史页面；新周次使用 `#pd-week1` 至 `#pd-week4`。
 - 无构建步骤。可用 `python3 -m http.server 4174 --bind 127.0.0.1` 本地预览。
